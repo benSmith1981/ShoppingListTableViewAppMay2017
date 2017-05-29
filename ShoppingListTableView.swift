@@ -131,10 +131,31 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
     // MARK: Gesture recogniser
 
     @IBAction func addShoppingItem(_ sender: Any) {
-        if let textFieldText = addItemTextfieldOutlet.text {
-            let item = ShoppingItem.init(name: textFieldText, price: 0)
-            shoppingItems.append(item)
+
+        //1. Create the alert controller.
+        let alert = UIAlertController(title: "New Shopping Item", message: "Enter a new shopping Item", preferredStyle: .alert)
+        
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            textField.text = "The New item"
         }
+        alert.addTextField { (priceField) in
+            priceField.text = "The New Price"
+        }
+        
+        // 3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            if let textField = alert?.textFields?[0].text, // Force unwrapping because we know it exists.
+                let priceField = alert?.textFields?[1].text // Force unwrapping because we know it exists.
+            {
+                let shopItem = ShoppingItem.init(name: textField, price: priceField)
+                self.shoppingItems.append(shopItem)
+                print("Text field: \(textField)")
+            }
+        }))
+        
+        // 4. Present the alert.
+        self.present(alert, animated: true, completion: nil)
     }
 
 }

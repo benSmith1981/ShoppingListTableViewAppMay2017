@@ -35,16 +35,6 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="rz1-4i-344">
-                            <rect key="frame" x="98" y="7" width="179" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="DhG-Aj-zCR" id="FZY-Zm-lhA"/>
-                            </connections>
-                        </textField>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="NVi-wM-SOt">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="THd-VW-U1Y">
                                 <rect key="frame" x="329" y="7" width="30" height="30"/>
@@ -57,7 +47,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addItemTextfieldOutlet" destination="rz1-4i-344" id="0zE-a8-35a"/>
                         <outlet property="addShoppingItemButton" destination="Wgh-eH-k9L" id="6qA-S6-w7g"/>
                     </connections>
                 </tableViewController>

@@ -9,8 +9,8 @@
 import Foundation
 class ShoppingItem {
     var name: String
-    var price: Int
-    init(name: String, price: Int) {
+    var price: String
+    init(name: String, price: String) {
         self.name = name
         self.price = price
     }

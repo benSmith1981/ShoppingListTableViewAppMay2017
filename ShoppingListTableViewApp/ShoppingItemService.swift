@@ -42,7 +42,7 @@ class ShoppingItemService {
             
             //(7)Create a variable shopItem, assign it the instance of ShoppingItem
             //   var shopItem = ShoppingItem.init… let it autocomplete
-            let currentShoppingItem = ShoppingItem.init(name: nameOfItem, price: priceOfItem)
+            let currentShoppingItem = ShoppingItem.init(name: nameOfItem, price: String(priceOfItem))
             
             //(8)Append shoppingItemArray with the variable shopItem
             shoppingItems.append(currentShoppingItem)
