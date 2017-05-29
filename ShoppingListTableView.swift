@@ -13,7 +13,7 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
     @IBOutlet weak var addItemTextfieldOutlet: UITextField!
     @IBOutlet weak var addShoppingItemButton: UIButton!
     
-    var shoppingItems: [String] = ["Eggs", "Bread", "Cake", "Chocolate"] {
+    var shoppingItems: [ShoppingItem] = [] {
         didSet {
             self.tableView.reloadData()
         }
@@ -27,9 +27,10 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         
         let nib = UINib(nibName: tableCellClassNames.shoppingList, bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: tableCellIDs.shoppingListId)
+        
+        shoppingItems = ShoppingItemService.getTheDataFromShoppingService()
+        
     }
-
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,7 +53,8 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ShoppingListTableViewCell = tableView.dequeueReusableCell(withIdentifier: tableCellIDs.shoppingListId, for: indexPath) as! ShoppingListTableViewCell
         print(indexPath.row)
-        cell.shoppingItemTextFieldOutlet.text = shoppingItems[indexPath.row]
+        var shoppingItemObject: ShoppingItem = shoppingItems[indexPath.row]
+        cell.shoppingItemTextFieldOutlet.text = "\(shoppingItemObject.name)  £\(shoppingItemObject.price)"
         cell.shoppingItemImageOutlet.image = #imageLiteral(resourceName: "donald")
         // Configure the cell...
 
@@ -129,9 +131,9 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
     // MARK: Gesture recogniser
 
     @IBAction func addShoppingItem(_ sender: Any) {
-        print(addItemTextfieldOutlet.text)
         if let textFieldText = addItemTextfieldOutlet.text {
-            shoppingItems.append(textFieldText)
+            let item = ShoppingItem.init(name: textFieldText, price: 0)
+            shoppingItems.append(item)
         }
     }
 
