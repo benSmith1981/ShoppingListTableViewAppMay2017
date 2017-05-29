@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vO2-Ey-k7E">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Shopping List Table View-->
+        <scene sceneID="t9z-1C-qdZ">
+            <objects>
+                <tableViewController id="DhG-Aj-zCR" customClass="ShoppingListTableView" customModule="ShoppingListTableViewApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" id="TWl-25-sYA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="4t4-hh-mla">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rz1-4i-344">
+                                    <rect key="frame" x="98" y="14" width="179" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="DhG-Aj-zCR" id="FZY-Zm-lhA"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <connections>
+                            <outlet property="dataSource" destination="DhG-Aj-zCR" id="BYJ-wy-sow"/>
+                            <outlet property="delegate" destination="DhG-Aj-zCR" id="Unk-B2-8PF"/>
+                            <outletCollection property="gestureRecognizers" destination="uUA-4G-xZL" appends="YES" id="6Ci-BO-xHx"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="2pK-d6-QGh">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="Yfd-fn-M5W">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Wgh-eH-k9L">
+                                <rect key="frame" x="16" y="7" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add item"/>
+                                <connections>
+                                    <action selector="addShoppingItem:" destination="DhG-Aj-zCR" eventType="touchUpInside" id="sxN-ge-HgO"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="NVi-wM-SOt">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="THd-VW-U1Y">
+                                <rect key="frame" x="329" y="7" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="edit"/>
+                                <connections>
+                                    <action selector="edit:" destination="DhG-Aj-zCR" eventType="touchUpInside" id="MXA-uc-j6S"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addItemTextfieldOutlet" destination="rz1-4i-344" id="0zE-a8-35a"/>
+                        <outlet property="addShoppingItemButton" destination="Wgh-eH-k9L" id="6qA-S6-w7g"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u5a-ye-evs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="uUA-4G-xZL">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="DhG-Aj-zCR" id="LE6-oe-Rfy"/>
+                        <outlet property="delegate" destination="DhG-Aj-zCR" id="A7y-mB-MgW"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="687.20000000000005" y="137.18140929535232"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nvA-pQ-Rvp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vO2-Ey-k7E" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="w6l-de-v7X">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DhG-Aj-zCR" kind="relationship" relationship="rootViewController" id="AIX-iC-PZM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5BD-Qa-EjC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-252" y="137.18140929535232"/>
+        </scene>
+    </scenes>
+</document>

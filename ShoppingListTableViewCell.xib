@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShoppingListCustomCell" rowHeight="120" id="KGk-i7-Jjw" customClass="ShoppingListTableViewCell" customModule="ShoppingListTableViewApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1i-Fg-cAj">
+                        <rect key="frame" x="128" y="49" width="158" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="20s-Id-cWN">
+                        <rect key="frame" x="8" y="12" width="98" height="96"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="96" id="7mA-V5-FAR"/>
+                            <constraint firstAttribute="width" constant="98" id="PbR-DW-smh"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="v1i-Fg-cAj" firstAttribute="leading" secondItem="20s-Id-cWN" secondAttribute="trailing" constant="22" id="K5R-BX-QaD"/>
+                    <constraint firstItem="20s-Id-cWN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="YlR-jp-bpO"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="20s-Id-cWN" secondAttribute="bottom" constant="4" id="Yvo-EQ-uFW"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="v1i-Fg-cAj" secondAttribute="trailing" constant="6" id="p0x-iJ-Jzt"/>
+                    <constraint firstItem="v1i-Fg-cAj" firstAttribute="centerY" secondItem="20s-Id-cWN" secondAttribute="centerY" id="shu-3R-sIn"/>
+                    <constraint firstItem="20s-Id-cWN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="yWk-JN-IV9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="shoppingItemImageOutlet" destination="20s-Id-cWN" id="hTo-up-EYy"/>
+                <outlet property="shoppingItemTextFieldOutlet" destination="v1i-Fg-cAj" id="c29-UZ-cx3"/>
+            </connections>
+            <point key="canvasLocation" x="55.5" y="137"/>
+        </tableViewCell>
+    </objects>
+</document>
