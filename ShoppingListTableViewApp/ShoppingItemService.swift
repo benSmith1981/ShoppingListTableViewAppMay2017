@@ -24,55 +24,30 @@ class ShoppingItemService {
         //(2)Create an variable arrayOfDictionaries and assign it JSONDictionary
         //   Use the Key "ShoppingItems" in JSONDictionary
         //   cast it to an array:    as! NSArray
-        let arrayOfDictionaries = JSONDictionary["ShoppingItems"] as! NSArray
+        if let arrayOfDictionaries = JSONDictionary["ShoppingItems"] as? NSArray {
         
-        //(3)Iterate the arrayOfDictionaries
-        for shoppingItemDictionary in arrayOfDictionaries {
-            //(4)Create a variable, assign it the value of shoppingItemDictionary
-            //   Cast this using: shoppingItemDictionary as! NSDictionary
-            var shoppingItem = shoppingItemDictionary as! NSDictionary
-            
-            //(5)Create a variable for name of item
-            //   Assign the variable the value of the key: shoppingItem[“name”] as! String
-            let nameOfItem = shoppingItem["name"] as! String
-            
-            //(6)Create a variable for price of item
-            //   Assign it the value of the key “price”: shoppingItem[“price”] as! Int
-            let priceOfItem = shoppingItem["price"] as! Int
-            
-            //(7)Create a variable shopItem, assign it the instance of ShoppingItem
-            //   var shopItem = ShoppingItem.init… let it autocomplete
-            let currentShoppingItem = ShoppingItem.init(name: nameOfItem, price: String(priceOfItem))
-            
-            //(8)Append shoppingItemArray with the variable shopItem
-            shoppingItems.append(currentShoppingItem)
+            //(3)Iterate the arrayOfDictionaries
+            for shoppingItemDictionary in arrayOfDictionaries {
+                //(4)Create a variable, assign it the value of shoppingItemDictionary
+                //   Cast this using: shoppingItemDictionary as! NSDictionary
+                var shoppingItem = shoppingItemDictionary as! NSDictionary
+                
+                //(5)Create a variable for name of item
+                //   Assign the variable the value of the key: shoppingItem[“name”] as! String
+                let nameOfItem = shoppingItem["name"] as! String
+                
+                //(6)Create a variable for price of item
+                //   Assign it the value of the key “price”: shoppingItem[“price”] as! Int
+                let priceOfItem = shoppingItem["price"] as! Int
+                
+                //(7)Create a variable shopItem, assign it the instance of ShoppingItem
+                //   var shopItem = ShoppingItem.init… let it autocomplete
+                let currentShoppingItem = ShoppingItem.init(name: nameOfItem, price: String(priceOfItem))
+                
+                //(8)Append shoppingItemArray with the variable shopItem
+                shoppingItems.append(currentShoppingItem)
+            }
         }
         return shoppingItems
-    }
-}
-
-//The clever parsed, it deserialises the JSON, don't worry about it too much lot of complicated things here
-extension String {
-    
-    var parseJSONString: AnyObject? {
-        
-        let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        
-        if let jsonData = data {
-            do {
-                let message = try JSONSerialization.jsonObject(with: jsonData, options:.mutableContainers)
-                return message as AnyObject?
-            }
-            catch let error as NSError
-            {
-                print("An error occurred: \(error)")
-                return nil
-            }
-            
-            // Will return an object or nil if JSON decoding fails
-        } else {
-            // Lossless conversion of the string was not possible
-            return nil
-        }
     }
 }

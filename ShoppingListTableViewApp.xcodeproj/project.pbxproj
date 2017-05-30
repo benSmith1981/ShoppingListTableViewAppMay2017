@@ -20,6 +20,8 @@
 		BE77276E1EDC2955005BFC69 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77276D1EDC2955005BFC69 /* Constants.swift */; };
 		BE7727701EDC54D0005BFC69 /* ShoppingItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77276F1EDC54CF005BFC69 /* ShoppingItemService.swift */; };
 		BE7727721EDC5522005BFC69 /* ShoppingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7727711EDC5522005BFC69 /* ShoppingItem.swift */; };
+		BE7727741EDC7747005BFC69 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7727731EDC7747005BFC69 /* StringExtensions.swift */; };
+		BE7727781EDD6DF9005BFC69 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7727771EDD6DF9005BFC69 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		BE77276D1EDC2955005BFC69 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BE77276F1EDC54CF005BFC69 /* ShoppingItemService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemService.swift; sourceTree = "<group>"; };
 		BE7727711EDC5522005BFC69 /* ShoppingItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItem.swift; sourceTree = "<group>"; };
+		BE7727731EDC7747005BFC69 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		BE7727771EDD6DF9005BFC69 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,9 +114,11 @@
 			isa = PBXGroup;
 			children = (
 				BE77276F1EDC54CF005BFC69 /* ShoppingItemService.swift */,
+				BE7727731EDC7747005BFC69 /* StringExtensions.swift */,
 				BE7727711EDC5522005BFC69 /* ShoppingItem.swift */,
 				BE2E59C11ED5E17500975CAB /* ShoppingListTableView.swift */,
 				BE77276D1EDC2955005BFC69 /* Constants.swift */,
+				BE7727771EDD6DF9005BFC69 /* DetailViewController.swift */,
 				BE7727691EDC25FB005BFC69 /* ShoppingListTableViewCell.swift */,
 				BE77276A1EDC25FB005BFC69 /* ShoppingListTableViewCell.xib */,
 				BE2E59901ED5E10700975CAB /* AppDelegate.swift */,
@@ -281,6 +287,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE7727781EDD6DF9005BFC69 /* DetailViewController.swift in Sources */,
+				BE7727741EDC7747005BFC69 /* StringExtensions.swift in Sources */,
 				BE77276E1EDC2955005BFC69 /* Constants.swift in Sources */,
 				BE2E59C21ED5E17500975CAB /* ShoppingListTableView.swift in Sources */,
 				BE77276B1EDC25FB005BFC69 /* ShoppingListTableViewCell.swift in Sources */,

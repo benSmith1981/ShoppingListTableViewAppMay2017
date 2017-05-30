@@ -13,8 +13,10 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
     @IBOutlet weak var addItemTextfieldOutlet: UITextField!
     @IBOutlet weak var addShoppingItemButton: UIButton!
     
+    var currentSelectedShopItem: ShoppingItem?
     var shoppingItems: [ShoppingItem] = [] {
         didSet {
+            let indexPath = NSIndexPath.init(row: 0, section: 0)
             self.tableView.reloadData()
         }
     }
@@ -30,6 +32,10 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         
         shoppingItems = ShoppingItemService.getTheDataFromShoppingService()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,6 +88,18 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         shoppingItems.insert(itemToMove, at: to.row)
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        currentSelectedShopItem = shoppingItems[indexPath.row]
+        performSegue(withIdentifier: segues.detailViewSegue, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segues.detailViewSegue {
+            let detailView = segue.destination as! DetailViewController
+            detailView.shopItem = currentSelectedShopItem
+        }
+    }
+    
     @IBAction func edit(_ sender: Any) {
         if isEditing {
             setEditing(false, animated: true)
@@ -99,15 +117,7 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
     // MARK: Gesture recogniser
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
-//        let location = touch.location(in: self.tableView)
-//        let path = self.tableView?.indexPathForRow(at: location)
-//        if let indexPathForRow = path , let tbl = self.tableView {
-//            self.tableView(tbl, didSelectRowAt: indexPathForRow)
-//        } else {
-//            //your wanted event
-//        }
-        
+
         if gestureRecognizer is UITapGestureRecognizer {
             let location = touch.location(in: self.view)
 
@@ -118,10 +128,6 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         }
         print("is UITapGestureRecognizer")
         return true
-//        if touch.view?.isDescendant(of: self.tableView) == true {
-//            return false
-//        }
-//        return true
     }
     
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
@@ -137,10 +143,11 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         
         //2. Add the text field. You can configure it however you need.
         alert.addTextField { (textField) in
-            textField.text = "The New item"
+            textField.placeholder = "The New item"
         }
         alert.addTextField { (priceField) in
-            priceField.text = "The New Price"
+            priceField.keyboardType = .numberPad
+            priceField.placeholder = "The New Price"
         }
         
         // 3. Grab the value from the text field, and print it when the user clicks OK.
@@ -158,4 +165,5 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         self.present(alert, animated: true, completion: nil)
     }
 
+    
 }

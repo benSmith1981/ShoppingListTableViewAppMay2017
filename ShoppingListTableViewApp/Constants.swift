@@ -15,3 +15,7 @@ struct tableCellIDs {
 struct tableCellClassNames {
     static let shoppingList = "ShoppingListTableViewCell"
 }
+
+struct segues {
+    static let  detailViewSegue = "detailViewSegue"
+}
