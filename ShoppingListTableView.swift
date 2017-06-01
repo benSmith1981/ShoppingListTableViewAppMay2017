@@ -12,11 +12,10 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
     
     @IBOutlet weak var addItemTextfieldOutlet: UITextField!
     @IBOutlet weak var addShoppingItemButton: UIButton!
-    
-    var currentSelectedShopItem: ShoppingItem?
-    var shoppingItems: [ShoppingItem] = [] {
+    var imageStore: ImageStore?
+    var currentSelectedShopItem: ShoppingItems?
+    var shoppingItems: [ShoppingItems] = [] {
         didSet {
-            let indexPath = NSIndexPath.init(row: 0, section: 0)
             self.tableView.reloadData()
         }
     }
@@ -30,8 +29,45 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         let nib = UINib(nibName: tableCellClassNames.shoppingList, bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: tableCellIDs.shoppingListId)
         
-        shoppingItems = ShoppingItemService.getTheDataFromShoppingService()
+        ShoppingItemService.sharedInstance.getShoppingListData()
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ShoppingListTableView.notifyObservers),
+                                               name:  NSNotification.Name(rawValue: notificationIDs.shoppingData),
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ShoppingListTableView.addedDataObserver),
+                                               name:  NSNotification.Name(rawValue: notificationIDs.addedShoppingData),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ShoppingListTableView.deletedDataObserver),
+                                               name:  NSNotification.Name(rawValue: notificationIDs.deletedShoppingData),
+                                               object: nil)
+        
+    }
+    
+    func deletedDataObserver(notification: NSNotification) {
+        print("got data")
+        var shopItemDict = notification.userInfo as! Dictionary<String , ShoppingItems>
+        if  let shoppingItem = shopItemDict[notificationDataKey.shopingDataKey] {
+            self.shoppingItems = shoppingItem.removeShoppingItemFrom(itemArray: self.shoppingItems)
+        }
+
+    }
+    
+    func addedDataObserver(notification: NSNotification) {
+        print("got data")
+        var shopItemDict = notification.userInfo as! Dictionary<String , ShoppingItems>
+        let shoppingItem = shopItemDict[notificationDataKey.shopingDataKey]
+        self.shoppingItems.append(shoppingItem!)
+    }
+    
+    func notifyObservers(notification: NSNotification) {
+        print("got data")
+        var shopItemDict = notification.userInfo as! Dictionary<String , [ShoppingItems]>
+        shoppingItems = shopItemDict[notificationDataKey.shopingDataKey]!
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,22 +95,24 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ShoppingListTableViewCell = tableView.dequeueReusableCell(withIdentifier: tableCellIDs.shoppingListId, for: indexPath) as! ShoppingListTableViewCell
         print(indexPath.row)
-        var shoppingItemObject: ShoppingItem = shoppingItems[indexPath.row]
-        cell.shoppingItemTextFieldOutlet.text = "\(shoppingItemObject.name)  £\(shoppingItemObject.price)"
-        cell.shoppingItemImageOutlet.image = #imageLiteral(resourceName: "donald")
-        // Configure the cell...
-
+        var shoppingItem = shoppingItems[indexPath.row]
+        if let name = shoppingItem.name, let price = shoppingItem.price {
+            cell.shoppingItemTextFieldOutlet.text = "\(name)  £\(price)"
+            cell.shoppingItemImageOutlet.image = #imageLiteral(resourceName: "donald")
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.rowHeight
     }
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            ImageStore.sharedInstance.deleteImage(forKey: shoppingItems[indexPath.row].id)
             // Delete the row from the data source
-            shoppingItems.remove(at: indexPath.row)
+            ShoppingItemService.sharedInstance.removeShoppingItem(shoppingItems[indexPath.row])
             //tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -86,6 +124,7 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         let itemToMove = shoppingItems[fromIndexPath.row]
         shoppingItems.remove(at: fromIndexPath.row)
         shoppingItems.insert(itemToMove, at: to.row)
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -152,11 +191,13 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         
         // 3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-            if let textField = alert?.textFields?[0].text, // Force unwrapping because we know it exists.
-                let priceField = alert?.textFields?[1].text // Force unwrapping because we know it exists.
+            if let textField = alert?.textFields?[0].text,
+                let priceField = alert?.textFields?[1].text,
+                let priceDouble = Double(priceField)
             {
-                let shopItem = ShoppingItem.init(name: textField, price: priceField)
-                self.shoppingItems.append(shopItem)
+                let shopItem = ShoppingItems.init(name: textField, price: priceDouble, description: "")
+                ShoppingItemService.sharedInstance.addShopItem(shopItem: shopItem)
+
                 print("Text field: \(textField)")
             }
         }))

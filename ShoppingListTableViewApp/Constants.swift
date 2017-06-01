@@ -9,7 +9,7 @@
 import Foundation
 
 struct tableCellIDs {
- static let shoppingListId = "ShoppingListCustomCell"
+    static let shoppingListId = "ShoppingListCustomCell"
 }
 
 struct tableCellClassNames {
@@ -18,4 +18,15 @@ struct tableCellClassNames {
 
 struct segues {
     static let  detailViewSegue = "detailViewSegue"
+}
+
+struct notificationIDs {
+    static let shoppingData = "ShoppingItemListener"
+    static let addedShoppingData = "addedShoppingData"
+    static let deletedShoppingData = "deletedShoppingData"
+
+}
+
+struct notificationDataKey {
+    static let shopingDataKey = "shoppingData"
 }

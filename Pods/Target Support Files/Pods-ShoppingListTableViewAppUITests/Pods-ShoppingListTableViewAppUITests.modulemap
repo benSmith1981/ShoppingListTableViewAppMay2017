@@ -1,0 +1,6 @@
+framework module Pods_ShoppingListTableViewAppUITests {
+  umbrella header "Pods-ShoppingListTableViewAppUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
