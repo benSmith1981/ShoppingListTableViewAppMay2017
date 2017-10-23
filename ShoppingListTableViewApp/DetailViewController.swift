@@ -27,7 +27,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         }
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        if let name = nameTextFieldOutlet.text {
+            shopItem?.name = name
+        }
+        if let priceText = priceTextFieldOutlet.text,
+            let doublePrice = Double(priceText) {
+            shopItem?.price = doublePrice
+        }
+        ShoppingItemService.sharedInstance.addShopItem(shopItem: shopItem!)
+        
+    }
     @IBAction func takePic(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -36,21 +46,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
             imagePicker.sourceType = .photoLibrary
         }
         
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
+        imagePicker.delegate = nil
+        present(imagePicker, animated: true) {
+            
+        }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        if let name = nameTextFieldOutlet.text {
-            shopItem?.name = name
-        }
-        if let priceText = priceTextFieldOutlet.text,
-           let doublePrice = Double(priceText) {
-                shopItem?.price = doublePrice
-        }
-        ShoppingItemService.sharedInstance.addShopItem(shopItem: shopItem!)
 
-    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage

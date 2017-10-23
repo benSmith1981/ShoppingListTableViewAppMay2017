@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UINavigationControllerDelegate {
+class ShoppingListTableView: UITableViewController, UITextFieldDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var addItemTextfieldOutlet: UITextField!
     @IBOutlet weak var addShoppingItemButton: UIButton!
@@ -26,13 +26,17 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
         addShoppingItemButton.backgroundColor = UIColor.blue
         self.navigationController?.delegate = self
         
+        let shoppingNib = UINib.init(nibName: "ShoppingCell", bundle: nil)
+        self.tableView.register(shoppingNib, forCellReuseIdentifier: tableCellIDs.shoppingCellID)
+        
+        
         let nib = UINib(nibName: tableCellClassNames.shoppingList, bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: tableCellIDs.shoppingListId)
         
         ShoppingItemService.sharedInstance.getShoppingListData()
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ShoppingListTableView.notifyObservers),
+                                               selector: #selector(ShoppingListTableView.notifyObservers(notification:)),
                                                name:  NSNotification.Name(rawValue: notificationIDs.shoppingData),
                                                object: nil)
         
@@ -41,12 +45,28 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
                                                name:  NSNotification.Name(rawValue: notificationIDs.addedShoppingData),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ShoppingListTableView.deletedDataObserver),
-                                               name:  NSNotification.Name(rawValue: notificationIDs.deletedShoppingData),
+                                   selector: #selector(ShoppingListTableView.deletedDataObserver),
+                                   name:  NSNotification.Name(rawValue: notificationIDs.deletedShoppingData),
+                                   object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ShoppingListTableView.changedObserver),
+                                               name:  NSNotification.Name(rawValue: notificationIDs.changedData),
                                                object: nil)
         
     }
     
+    func changedObserver(notification: NSNotification) {
+        var shopItemDict = notification.userInfo as! Dictionary<String , ShoppingItems>
+        let shoppingItem = shopItemDict[notificationDataKey.shopingDataKey]
+        self.shoppingItems = self.shoppingItems.map { (item) -> ShoppingItems in
+            if shoppingItem?.id == item.id {
+                return shoppingItem!
+            } else {
+                return item
+            }
+        }
+    }
     func deletedDataObserver(notification: NSNotification) {
         print("got data")
         var shopItemDict = notification.userInfo as! Dictionary<String , ShoppingItems>
@@ -93,18 +113,29 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ShoppingListTableViewCell = tableView.dequeueReusableCell(withIdentifier: tableCellIDs.shoppingListId, for: indexPath) as! ShoppingListTableViewCell
-        print(indexPath.row)
-        var shoppingItem = shoppingItems[indexPath.row]
-        if let name = shoppingItem.name, let price = shoppingItem.price {
-            cell.shoppingItemTextFieldOutlet.text = "\(name)  £\(price)"
-            cell.shoppingItemImageOutlet.image = #imageLiteral(resourceName: "donald")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIDs.shoppingCellID, for: indexPath) as! ShoppingCell
+        let shoppingItem = shoppingItems[indexPath.row]
+        cell.nameLabel.text = shoppingItem.name
         return cell
     }
     
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell: ShoppingListTableViewCell = tableView.dequeueReusableCell(withIdentifier: tableCellIDs.shoppingListId, for: indexPath) as! ShoppingListTableViewCell
+//        print(indexPath.row)
+//        var shoppingItem = shoppingItems[indexPath.row]
+//        if let name = shoppingItem.name, let price = shoppingItem.price {
+//            cell.shoppingItemTextFieldOutlet.text = "\(name)  £\(price)"
+//            cell.shoppingItemImageOutlet.image = #imageLiteral(resourceName: "donald")
+//        }
+//        return cell
+//    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.rowHeight
+        
+        if indexPath.row == 0 {
+            return 100
+        }
+        return 44//tableView.rowHeight
     }
     
     // Override to support editing the table view.
@@ -129,13 +160,18 @@ class ShoppingListTableView: UITableViewController, UIGestureRecognizerDelegate,
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentSelectedShopItem = shoppingItems[indexPath.row]
-        performSegue(withIdentifier: segues.detailViewSegue, sender: self)
+        performSegue(withIdentifier: segues.detailTableSegue, sender: self)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == segues.detailViewSegue {
             let detailView = segue.destination as! DetailViewController
             detailView.shopItem = currentSelectedShopItem
+        }
+        
+        if segue.identifier == segues.detailTableSegue {
+            let detailView = segue.destination as! DetailTableViewTableViewController
+            detailView.shoppingItem = currentSelectedShopItem
         }
     }
     

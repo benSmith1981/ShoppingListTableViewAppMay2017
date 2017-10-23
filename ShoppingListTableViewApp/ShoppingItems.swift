@@ -24,17 +24,7 @@ public class ShoppingItems {
         self.price = price
         self.description = description
     }
-
-/**
-    Returns an array of models based on given dictionary.
     
-    Sample usage:
-    let shoppingItems_list = ShoppingItems.modelsFromDictionaryArray(someDictionaryArrayFromJSON)
-
-    - parameter array:  NSArray from JSON dictionary.
-
-    - returns: Array of ShoppingItems Instances.
-*/
     public class func modelsFromDictionaryArray(dictionary:NSDictionary) -> [ShoppingItems]
     {
         var models:[ShoppingItems] = []
@@ -55,16 +45,6 @@ public class ShoppingItems {
         return models
     }
 
-/**
-    Constructs the object based on the given dictionary.
-    
-    Sample usage:
-    let shoppingItems = ShoppingItems(someDictionaryFromJSON)
-
-    - parameter dictionary:  NSDictionary from JSON.
-
-    - returns: ShoppingItems Instance.
-*/
 	required public init?(dictionary: NSDictionary) {
 
 		self.name = dictionary["name"] as? String
@@ -75,12 +55,6 @@ public class ShoppingItems {
         }
 	}
 
-		
-/**
-    Returns the dictionary representation for the current instance.
-    
-    - returns: NSDictionary.
-*/
 	public func dictionaryRepresentation() -> NSDictionary {
         let dictionary = NSMutableDictionary()
         dictionary.setValue(self.name, forKey: "name")

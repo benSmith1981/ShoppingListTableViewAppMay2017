@@ -8,7 +8,7 @@ target 'ShoppingListTableViewApp' do
   # Pods for ShoppingListTableViewApp
   pod 'Firebase/Core'
   pod 'Firebase/Database'
-  
+  pod 'Firebase/Storage'
   target 'ShoppingListTableViewAppTests' do
     inherit! :search_paths
     # Pods for testing

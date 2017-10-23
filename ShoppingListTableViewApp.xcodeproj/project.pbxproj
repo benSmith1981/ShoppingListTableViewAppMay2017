@@ -10,6 +10,13 @@
 		5DE03E4F0FA662F7AFDAC962 /* Pods_ShoppingListTableViewAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D372468C284FE062E2DB6A34 /* Pods_ShoppingListTableViewAppTests.framework */; };
 		83CC372099A4C4D935444336 /* Pods_ShoppingListTableViewAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A26BA83984E1FECC5D8417 /* Pods_ShoppingListTableViewAppUITests.framework */; };
 		B2512ED98077013F5D9F7883 /* Pods_ShoppingListTableViewApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2751FCFECFADDEF8A1D2B0E7 /* Pods_ShoppingListTableViewApp.framework */; };
+		B541D7B11F9745CE0056541D /* ShoppingDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B541D7AF1F9745CE0056541D /* ShoppingDetailsCell.swift */; };
+		B541D7B21F9745CF0056541D /* ShoppingDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B541D7B01F9745CE0056541D /* ShoppingDetailsCell.xib */; };
+		B541D7B51F974FD00056541D /* HANDWRIT.TTF in Resources */ = {isa = PBXBuildFile; fileRef = B541D7B41F974F380056541D /* HANDWRIT.TTF */; };
+		B541D7B81F9757E10056541D /* ShoppingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B541D7B61F9757E10056541D /* ShoppingCell.swift */; };
+		B541D7B91F9757E10056541D /* ShoppingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B541D7B71F9757E10056541D /* ShoppingCell.xib */; };
+		B541D7BB1F9767920056541D /* DetailTableViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B541D7BA1F9767920056541D /* DetailTableViewTableViewController.swift */; };
+		B5D192571F9E23A600FB971D /* PastedGraphic-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D192561F9E23A600FB971D /* PastedGraphic-1.png */; };
 		BE2E59911ED5E10700975CAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E59901ED5E10700975CAB /* AppDelegate.swift */; };
 		BE2E59961ED5E10700975CAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2E59941ED5E10700975CAB /* Main.storyboard */; };
 		BE2E59991ED5E10700975CAB /* ShoppingListTableViewApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE2E59971ED5E10700975CAB /* ShoppingListTableViewApp.xcdatamodeld */; };
@@ -54,6 +61,13 @@
 		4F312103A962E6944D25A67A /* Pods-ShoppingListTableViewApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingListTableViewApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingListTableViewApp/Pods-ShoppingListTableViewApp.release.xcconfig"; sourceTree = "<group>"; };
 		50298C7C0D9942D2CEC44C83 /* Pods-ShoppingListTableViewApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingListTableViewApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingListTableViewApp/Pods-ShoppingListTableViewApp.debug.xcconfig"; sourceTree = "<group>"; };
 		99F11BACF7A06308A128E34A /* Pods-ShoppingListTableViewAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingListTableViewAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingListTableViewAppUITests/Pods-ShoppingListTableViewAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B541D7AF1F9745CE0056541D /* ShoppingDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingDetailsCell.swift; sourceTree = "<group>"; };
+		B541D7B01F9745CE0056541D /* ShoppingDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingDetailsCell.xib; sourceTree = "<group>"; };
+		B541D7B41F974F380056541D /* HANDWRIT.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = HANDWRIT.TTF; sourceTree = "<group>"; };
+		B541D7B61F9757E10056541D /* ShoppingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCell.swift; sourceTree = "<group>"; };
+		B541D7B71F9757E10056541D /* ShoppingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingCell.xib; sourceTree = "<group>"; };
+		B541D7BA1F9767920056541D /* DetailTableViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewTableViewController.swift; sourceTree = "<group>"; };
+		B5D192561F9E23A600FB971D /* PastedGraphic-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PastedGraphic-1.png"; sourceTree = "<group>"; };
 		BE2E598D1ED5E10700975CAB /* ShoppingListTableViewApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingListTableViewApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2E59901ED5E10700975CAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2E59951ED5E10700975CAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -137,6 +151,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		B541D7B31F974F170056541D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B541D7B41F974F380056541D /* HANDWRIT.TTF */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		BE2E59841ED5E10600975CAB = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +184,7 @@
 		BE2E598F1ED5E10700975CAB /* ShoppingListTableViewApp */ = {
 			isa = PBXGroup;
 			children = (
+				B541D7B31F974F170056541D /* Fonts */,
 				BE7727C31EDDC6A6005BFC69 /* ShoppingListTableViewApp.entitlements */,
 				BE77277F1EDD7D18005BFC69 /* TableCells */,
 				BE77277E1EDD7D03005BFC69 /* Extensions */,
@@ -170,6 +193,7 @@
 				BE7727771EDD6DF9005BFC69 /* DetailViewController.swift */,
 				BE2E59901ED5E10700975CAB /* AppDelegate.swift */,
 				BE2E59941ED5E10700975CAB /* Main.storyboard */,
+				B541D7BA1F9767920056541D /* DetailTableViewTableViewController.swift */,
 				BE2E599A1ED5E10700975CAB /* Assets.xcassets */,
 				BE2E599C1ED5E10700975CAB /* LaunchScreen.storyboard */,
 				BE2E599F1ED5E10700975CAB /* Info.plist */,
@@ -203,6 +227,7 @@
 			children = (
 				BEC67FCA1EDF170C0055FBD1 /* ImageStore.swift */,
 				BE77276F1EDC54CF005BFC69 /* ShoppingItemService.swift */,
+				B5D192561F9E23A600FB971D /* PastedGraphic-1.png */,
 				BE77277A1EDD7CE7005BFC69 /* ShoppingItems.swift */,
 				BE7727791EDD7CE7005BFC69 /* Json4Swift_Base.swift */,
 			);
@@ -223,6 +248,10 @@
 			children = (
 				BE7727691EDC25FB005BFC69 /* ShoppingListTableViewCell.swift */,
 				BE77276A1EDC25FB005BFC69 /* ShoppingListTableViewCell.xib */,
+				B541D7AF1F9745CE0056541D /* ShoppingDetailsCell.swift */,
+				B541D7B01F9745CE0056541D /* ShoppingDetailsCell.xib */,
+				B541D7B61F9757E10056541D /* ShoppingCell.swift */,
+				B541D7B71F9757E10056541D /* ShoppingCell.xib */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -355,6 +384,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE2E599E1ED5E10700975CAB /* LaunchScreen.storyboard in Resources */,
+				B541D7B91F9757E10056541D /* ShoppingCell.xib in Resources */,
+				B541D7B21F9745CF0056541D /* ShoppingDetailsCell.xib in Resources */,
+				B5D192571F9E23A600FB971D /* PastedGraphic-1.png in Resources */,
+				B541D7B51F974FD00056541D /* HANDWRIT.TTF in Resources */,
 				BE77276C1EDC25FB005BFC69 /* ShoppingListTableViewCell.xib in Resources */,
 				BE7727C21EDDBFA2005BFC69 /* GoogleService-Info.plist in Resources */,
 				BE2E599B1ED5E10700975CAB /* Assets.xcassets in Resources */,
@@ -526,11 +559,14 @@
 				BE7727741EDC7747005BFC69 /* StringExtensions.swift in Sources */,
 				BE77276E1EDC2955005BFC69 /* Constants.swift in Sources */,
 				BE77277B1EDD7CE7005BFC69 /* Json4Swift_Base.swift in Sources */,
+				B541D7BB1F9767920056541D /* DetailTableViewTableViewController.swift in Sources */,
 				BE2E59C21ED5E17500975CAB /* ShoppingListTableView.swift in Sources */,
 				BE77276B1EDC25FB005BFC69 /* ShoppingListTableViewCell.swift in Sources */,
+				B541D7B11F9745CE0056541D /* ShoppingDetailsCell.swift in Sources */,
 				BE7727701EDC54D0005BFC69 /* ShoppingItemService.swift in Sources */,
 				BE2E59991ED5E10700975CAB /* ShoppingListTableViewApp.xcdatamodeld in Sources */,
 				BE2E59911ED5E10700975CAB /* AppDelegate.swift in Sources */,
+				B541D7B81F9757E10056541D /* ShoppingCell.swift in Sources */,
 				BE77277C1EDD7CE7005BFC69 /* ShoppingItems.swift in Sources */,
 				BEC67FCB1EDF170C0055FBD1 /* ImageStore.swift in Sources */,
 			);
