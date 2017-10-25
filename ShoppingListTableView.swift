@@ -13,8 +13,8 @@ class ShoppingListTableView: UITableViewController, UITextFieldDelegate, UINavig
     @IBOutlet weak var addItemTextfieldOutlet: UITextField!
     @IBOutlet weak var addShoppingItemButton: UIButton!
     var imageStore: ImageStore?
-    var currentSelectedShopItem: ShoppingItems?
-    var shoppingItems: [ShoppingItems] = [] {
+    var currentSelectedShopItem: ShopItem?
+    var shoppingItems: [ShopItem] = [] {
         didSet {
             self.tableView.reloadData()
         }
@@ -57,9 +57,9 @@ class ShoppingListTableView: UITableViewController, UITextFieldDelegate, UINavig
     }
     
     func changedObserver(notification: NSNotification) {
-        var shopItemDict = notification.userInfo as! Dictionary<String , ShoppingItems>
+        var shopItemDict = notification.userInfo as! Dictionary<String , ShopItem>
         let shoppingItem = shopItemDict[notificationDataKey.shopingDataKey]
-        self.shoppingItems = self.shoppingItems.map { (item) -> ShoppingItems in
+        self.shoppingItems = self.shoppingItems.map { (item) -> ShopItem in
             if shoppingItem?.id == item.id {
                 return shoppingItem!
             } else {
@@ -69,23 +69,23 @@ class ShoppingListTableView: UITableViewController, UITextFieldDelegate, UINavig
     }
     func deletedDataObserver(notification: NSNotification) {
         print("got data")
-        var shopItemDict = notification.userInfo as! Dictionary<String , ShoppingItems>
+        var shopItemDict = notification.userInfo as! Dictionary<String , ShopItem>
         if  let shoppingItem = shopItemDict[notificationDataKey.shopingDataKey] {
-            self.shoppingItems = shoppingItem.removeShoppingItemFrom(itemArray: self.shoppingItems)
+//            self.shoppingItems = shoppingItem.removeShoppingItemFrom(itemArray: self.shoppingItems)
         }
 
     }
     
     func addedDataObserver(notification: NSNotification) {
         print("got data")
-        var shopItemDict = notification.userInfo as! Dictionary<String , ShoppingItems>
+        var shopItemDict = notification.userInfo as! Dictionary<String , ShopItem>
         let shoppingItem = shopItemDict[notificationDataKey.shopingDataKey]
         self.shoppingItems.append(shoppingItem!)
     }
     
     func notifyObservers(notification: NSNotification) {
         print("got data")
-        var shopItemDict = notification.userInfo as! Dictionary<String , [ShoppingItems]>
+        var shopItemDict = notification.userInfo as! Dictionary<String , [ShopItem]>
         shoppingItems = shopItemDict[notificationDataKey.shopingDataKey]!
 
     }
@@ -166,7 +166,7 @@ class ShoppingListTableView: UITableViewController, UITextFieldDelegate, UINavig
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == segues.detailViewSegue {
             let detailView = segue.destination as! DetailViewController
-            detailView.shopItem = currentSelectedShopItem
+            detailView.shopItemDetail = currentSelectedShopItem
         }
         
         if segue.identifier == segues.detailTableSegue {
@@ -231,7 +231,8 @@ class ShoppingListTableView: UITableViewController, UITextFieldDelegate, UINavig
                 let priceField = alert?.textFields?[1].text,
                 let priceDouble = Double(priceField)
             {
-                let shopItem = ShoppingItems.init(name: textField, price: priceDouble, description: "")
+                let shopItem =  ShopItem.init(name: textField, price: priceDouble, description: "", photoURLString: "", id: NSUUID().uuidString)
+
                 ShoppingItemService.sharedInstance.addShopItem(shopItem: shopItem)
 
                 print("Text field: \(textField)")

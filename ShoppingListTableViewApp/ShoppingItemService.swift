@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import SVProgressHUD
 
 class ShoppingItemService {
     public static let sharedInstance = ShoppingItemService()  // Singleton: https://en.wikipedia.org/wiki/Singleton_pattern
@@ -21,25 +22,8 @@ class ShoppingItemService {
     public func getShoppingListData() -> Void {
         ref = Database.database().reference()
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let data = snapshot.value as? NSDictionary,
-                let sites = data["data"] as? NSArray{
-                for site in sites {
-                    print(site)
-                }
-//                let shopData = self.dictionaryToShopObject(dict: data)
-                
-//
-//                NotificationCenter.default.post(name: Notification.Name(rawValue: notificationIDs.shoppingData),
-//                                                object: self,
-//                                                userInfo: ["data":shopData])
-            }
-        })
-        
-    
-        
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let data = snapshot.value as? NSDictionary {
-
+                print(data)
                 let arrayOfShoppingItems = self.dictionaryToShopObject(dict: data)
 
                 let shoppingDataDict = [notificationDataKey.shopingDataKey : arrayOfShoppingItems]
@@ -56,7 +40,7 @@ class ShoppingItemService {
         ref.child("ShoppingItems").observe(.childChanged, with: { (snapshot) -> Void in
             if let shopDict = snapshot.value as? NSDictionary{
                 print("childAdded")
-                if let shoppingItem = self.dictionaryToOneObject(dict: shopDict) {
+                if var shoppingItem = self.dictionaryToOneObject(dict: shopDict) {
                     shoppingItem.id = snapshot.key
                     //ShoppingItems.init(dictionary: shopDict)
                     let data = [notificationDataKey.shopingDataKey : shoppingItem]
@@ -66,33 +50,27 @@ class ShoppingItemService {
                 }
             }
         })
-//
-//        ref.child("ShoppingItems").observe(.childRemoved, with: { (snapshot) -> Void in
-//            print("childRemoved")
-//            if let shopDict = snapshot.value as? NSDictionary{
-//                print("childAdded")
-//                let shoppingItem = ShoppingItems.init(dictionary: shopDict)
-//                let data = [notificationDataKey.shopingDataKey : shoppingItem]
-//                NotificationCenter.default.post(name: Notification.Name(rawValue: notificationIDs.deletedShoppingData),
-//                                                object: self,
-//                                                userInfo: data)
-//            }
-//        })
+
+        ref.child("ShoppingItems").observe(.childRemoved, with: { (snapshot) -> Void in
+            print("childRemoved")
+            if let shopDict = snapshot.value as? NSDictionary{
+                let shoppingItem = self.dictionaryToOneObject(dict: shopDict)
+                let data = [notificationDataKey.shopingDataKey : shoppingItem]
+                NotificationCenter.default.post(name: Notification.Name(rawValue: notificationIDs.deletedShoppingData),
+                                                object: self,
+                                                userInfo: data)
+            }
+        })
     }
 
-    func dictionaryToShopObject(dict: NSDictionary) -> [ShoppingItems]{
+    func dictionaryToShopObject(dict: NSDictionary) -> [ShopItem]{
         let shoppingItem = dict["ShoppingItems"] as! NSDictionary
         
-        var shopitems: [ShoppingItems] = []
+        var shopitems: [ShopItem] = []
         for key in shoppingItem.keyEnumerator() {
             print(key)
             if let item = shoppingItem[key] as? NSDictionary,
-                let desc = item["description"] as? String,
-                let name = item["name"] as? String,
-                let price = item["price"] {
-                let shoppingitem = ShoppingItems.init(name: name,
-                                                      price: price as! Double,
-                                                      description: desc)
+                var shoppingitem = dictionaryToOneObject(dict:item) {
                 shoppingitem.id = key as! String
                 shopitems.append(shoppingitem)
             }
@@ -100,42 +78,61 @@ class ShoppingItemService {
         return shopitems
     }
     
-    func dictionaryToOneObject(dict: NSDictionary) -> ShoppingItems?{
-        if let desc = dict["description"] as? String,
-            let name = dict["name"] as? String,
-            let price = dict["price"] {
-            let shoppingitem = ShoppingItems.init(name: name,
-                                                  price: price as! Double,
-                                                  description: desc)
-//            shoppingitem.id = key as! String
-            return shoppingitem
-        } else {
+    func dictionaryToOneObject(dict: NSDictionary) -> ShopItem?{
+        
+//        let dataExample: Data = NSKeyedArchiver.archivedData(withRootObject: dict)
+//        let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+
+        let decoder = JSONDecoder()
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+//            let decoded = try JSONSerialization.jsonObject(with: dict, options: [])
+            let shopItem = try decoder.decode(ShopItem.self, from: jsonData)
+            return shopItem
+        } catch {
             return nil
         }
+    
     }
         
-    public func addShopItem(shopItem: ShoppingItems) {
-        var dict = shopItem.dictionaryRepresentation()
+    public func addShopItem(shopItem: ShopItem) {
+        let dict = self.dictionaryRepresentation(shopItem)
         ref.child("ShoppingItems").child(shopItem.id).setValue(dict)
         
     }
     
-    public func dictionaryRepresentation(from shopItem: ShoppingItems) -> NSDictionary {
-        let dictionary = NSMutableDictionary()
-        dictionary.setValue(shopItem.name, forKey: "name")
-        dictionary.setValue(shopItem.price, forKey: "price")
-        dictionary.setValue(shopItem.description, forKey: "description")
-        dictionary.setValue(shopItem.id, forKey: "id")
-        return dictionary
-    }
+//    public func dictionaryRepresentation(from shopItem: ShoppingItems) -> NSDictionary {
+//        let dictionary = NSMutableDictionary()
+//        dictionary.setValue(shopItem.name, forKey: "name")
+//        dictionary.setValue(shopItem.price, forKey: "price")
+//        dictionary.setValue(shopItem.description, forKey: "description")
+//        dictionary.setValue(shopItem.id, forKey: "id")
+//        return dictionary
+//    }
     
-    public func removeShoppingItem(_ shopItem: ShoppingItems) {
+    public func removeShoppingItem(_ shopItem: ShopItem) {
         ref.child("ShoppingItems").child(shopItem.id).removeValue()
     }
     
-    public func updateShoppingItem(_ shopItem: ShoppingItems) {
-        var dict = shopItem.dictionaryRepresentation()
-        ref.child("ShoppingItems").child(shopItem.id).updateChildValues(dict as! [AnyHashable : Any])
+    public func updateShoppingItem(_ shopItem: ShopItem) {
+        if let dict = dictionaryRepresentation(shopItem) {
+            ref.child("ShoppingItems").child(shopItem.id).updateChildValues(dict)
+        }
+    }
+    
+    public func dictionaryRepresentation(_ shopItem: ShopItem) -> Dictionary<String,Any>? {
+        let encoder = JSONEncoder()
+        if #available(iOS 11.0, *) {
+            encoder.outputFormatting = .sortedKeys
+        }
+        do {
+            let encodedShopItem = try encoder.encode(shopItem)
+            let dict = try JSONSerialization.jsonObject(with: encodedShopItem, options: []) as? [String: Any]
+            return dict
+
+        } catch {
+            return [:]
+        }
     }
     
     public func uploadImage(image: UIImage, imageName:String) {
@@ -147,7 +144,7 @@ class ShoppingItemService {
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
 
-        let data = UIImageJPEGRepresentation(image, 1.0)
+        let data = UIImageJPEGRepresentation(image, 0.2)
         // Upload file and metadata to the object 'images/mountains.jpg'
         let uploadTask = imagesRef.putData(data!, metadata: metadata)
         
@@ -165,17 +162,27 @@ class ShoppingItemService {
             let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
                 / Double(snapshot.progress!.totalUnitCount)
             print(percentComplete)
+            SVProgressHUD.showProgress(Float(percentComplete),
+                                       status:"\(percentComplete.rounded())%")
+
         }
         
         uploadTask.observe(.success) { snapshot in
             // Upload completed successfully
-            print(snapshot.reference.downloadURL(completion: { (url, error) in
+            snapshot.reference.downloadURL(completion: { (url, error) in
                 print(url)
-            }))
+                SVProgressHUD.dismiss()
+                NotificationCenter.default.post(name: Notification.Name(rawValue: notificationIDs.imageUploaded),
+                                                object: self,
+                                                userInfo: [notificationDataKey.imageURLKey:url])
+
+            })
         }
         
         uploadTask.observe(.failure) { snapshot in
             if let error = snapshot.error as? NSError {
+                SVProgressHUD.dismiss()
+
                 switch (StorageErrorCode(rawValue: error.code)!) {
                 case .objectNotFound:
                     print("File doesn't exist")

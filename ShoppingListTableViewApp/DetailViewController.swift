@@ -7,35 +7,34 @@
 //
 
 import UIKit
-
 class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var nameTextFieldOutlet: UITextField!
     @IBOutlet weak var priceTextFieldOutlet: UITextField!
     @IBOutlet weak var itemImage: UIImageView!
-    var shopItem: ShoppingItems?
+    var shopItemDetail: ShopItem?
     var imageStore: ImageStore?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let image = ImageStore.sharedInstance.image(forKey: (shopItem?.id)!) {
+        if let image = ImageStore.sharedInstance.image(forKey: (shopItemDetail?.id)!) {
             itemImage.image = image
         }
-        nameTextFieldOutlet.text = shopItem?.name
-        if let priceDouble = shopItem?.price {
+        nameTextFieldOutlet.text = shopItemDetail?.name
+        if let priceDouble = shopItemDetail?.price {
             priceTextFieldOutlet.text = "\(priceDouble)"
         }
         // Do any additional setup after loading the view.
     }
     override func viewWillDisappear(_ animated: Bool) {
         if let name = nameTextFieldOutlet.text {
-            shopItem?.name = name
+            shopItemDetail?.name = name
         }
         if let priceText = priceTextFieldOutlet.text,
             let doublePrice = Double(priceText) {
-            shopItem?.price = doublePrice
+            shopItemDetail?.price = doublePrice
         }
-        ShoppingItemService.sharedInstance.addShopItem(shopItem: shopItem!)
+        ShoppingItemService.sharedInstance.addShopItem(shopItem: self.shopItemDetail!)
         
     }
     @IBAction func takePic(_ sender: Any) {
@@ -56,7 +55,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        ImageStore.sharedInstance.setImage(image, forKey: (shopItem?.id)!)
+        ImageStore.sharedInstance.setImage(image, forKey: (shopItemDetail?.id)!)
         itemImage.image = image
         dismiss(animated: true, completion: nil)
     }

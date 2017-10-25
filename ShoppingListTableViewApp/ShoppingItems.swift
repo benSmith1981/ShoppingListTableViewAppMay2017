@@ -16,13 +16,15 @@ public class ShoppingItems {
 	public var name : String?
 	public var price : Double?
 	public var description : String?
+    public var photoURLString : String?
     public var order : Int = 0
     public var id = NSUUID().uuidString
 
-    init(name: String, price: Double, description: String) {
+    init(name: String, price: Double, description: String, photoURLString: String) {
         self.name = name
         self.price = price
         self.description = description
+        self.photoURLString = photoURLString
     }
     
     public class func modelsFromDictionaryArray(dictionary:NSDictionary) -> [ShoppingItems]
@@ -49,6 +51,7 @@ public class ShoppingItems {
 
 		self.name = dictionary["name"] as? String
 		self.price = dictionary["price"] as? Double
+        self.photoURLString = dictionary["photoURLString"] as? String
 		self.description = dictionary["description"] as? String
         if let id = dictionary["id"] as? String {
             self.id = id
@@ -60,6 +63,7 @@ public class ShoppingItems {
         dictionary.setValue(self.name, forKey: "name")
         dictionary.setValue(self.price, forKey: "price")
         dictionary.setValue(self.description, forKey: "description")
+        dictionary.setValue(self.photoURLString, forKey: "photoURLString")
         dictionary.setValue(self.id, forKey: "id")
 		return dictionary
 	}
@@ -69,6 +73,7 @@ public class ShoppingItems {
         shopObj["name"] = self.name ?? "something"
         shopObj["price"] = self.price ?? "somewhere"
         shopObj["description"] = self.description ?? "sometime"
+        shopObj["photoURLString"] = self.photoURLString ?? ""
         shopObj["id"] = self.id
         
         return shopObj

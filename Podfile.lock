@@ -26,11 +26,15 @@ PODS:
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GTMSessionFetcher/Core (1.1.12)
+  - Kingfisher (4.1.0)
+  - SVProgressHUD (2.2.1)
 
 DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - Kingfisher
+  - SVProgressHUD (~> 2.2)
 
 SPEC CHECKSUMS:
   Firebase: 284eea779b73fdff309791817da7c68bff8dd572
@@ -41,7 +45,9 @@ SPEC CHECKSUMS:
   FirebaseStorage: 8110a1ed2034c8fbfd83890d2acc9cdbbd99afec
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  Kingfisher: f14df8cbe576bf55f211fa589e9869bceb4ea87d
+  SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
 
-PODFILE CHECKSUM: 16e199d9e44c9d87933118f45713b1b1a9ab53d1
+PODFILE CHECKSUM: 035c8c8aebb3b4ba768154ea235124160d3f5b64
 
 COCOAPODS: 1.2.1

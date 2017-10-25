@@ -16,7 +16,10 @@
 		B541D7B81F9757E10056541D /* ShoppingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B541D7B61F9757E10056541D /* ShoppingCell.swift */; };
 		B541D7B91F9757E10056541D /* ShoppingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B541D7B71F9757E10056541D /* ShoppingCell.xib */; };
 		B541D7BB1F9767920056541D /* DetailTableViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B541D7BA1F9767920056541D /* DetailTableViewTableViewController.swift */; };
+		B55502A01FA07989009EDA48 /* ScrollImageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B555029E1FA07989009EDA48 /* ScrollImageTableCell.swift */; };
+		B55502A11FA0798A009EDA48 /* ScrollImageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B555029F1FA07989009EDA48 /* ScrollImageTableCell.xib */; };
 		B5D192571F9E23A600FB971D /* PastedGraphic-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B5D192561F9E23A600FB971D /* PastedGraphic-1.png */; };
+		B5DE957B1F9F3EB500C5DCF7 /* ShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE957A1F9F3EB500C5DCF7 /* ShopItem.swift */; };
 		BE2E59911ED5E10700975CAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2E59901ED5E10700975CAB /* AppDelegate.swift */; };
 		BE2E59961ED5E10700975CAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE2E59941ED5E10700975CAB /* Main.storyboard */; };
 		BE2E59991ED5E10700975CAB /* ShoppingListTableViewApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE2E59971ED5E10700975CAB /* ShoppingListTableViewApp.xcdatamodeld */; };
@@ -67,7 +70,10 @@
 		B541D7B61F9757E10056541D /* ShoppingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCell.swift; sourceTree = "<group>"; };
 		B541D7B71F9757E10056541D /* ShoppingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingCell.xib; sourceTree = "<group>"; };
 		B541D7BA1F9767920056541D /* DetailTableViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewTableViewController.swift; sourceTree = "<group>"; };
+		B555029E1FA07989009EDA48 /* ScrollImageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollImageTableCell.swift; sourceTree = "<group>"; };
+		B555029F1FA07989009EDA48 /* ScrollImageTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScrollImageTableCell.xib; sourceTree = "<group>"; };
 		B5D192561F9E23A600FB971D /* PastedGraphic-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PastedGraphic-1.png"; sourceTree = "<group>"; };
+		B5DE957A1F9F3EB500C5DCF7 /* ShopItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItem.swift; sourceTree = "<group>"; };
 		BE2E598D1ED5E10700975CAB /* ShoppingListTableViewApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingListTableViewApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE2E59901ED5E10700975CAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE2E59951ED5E10700975CAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -229,6 +235,7 @@
 				BE77276F1EDC54CF005BFC69 /* ShoppingItemService.swift */,
 				B5D192561F9E23A600FB971D /* PastedGraphic-1.png */,
 				BE77277A1EDD7CE7005BFC69 /* ShoppingItems.swift */,
+				B5DE957A1F9F3EB500C5DCF7 /* ShopItem.swift */,
 				BE7727791EDD7CE7005BFC69 /* Json4Swift_Base.swift */,
 			);
 			name = "Data Layer";
@@ -252,6 +259,8 @@
 				B541D7B01F9745CE0056541D /* ShoppingDetailsCell.xib */,
 				B541D7B61F9757E10056541D /* ShoppingCell.swift */,
 				B541D7B71F9757E10056541D /* ShoppingCell.xib */,
+				B555029E1FA07989009EDA48 /* ScrollImageTableCell.swift */,
+				B555029F1FA07989009EDA48 /* ScrollImageTableCell.xib */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -384,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE2E599E1ED5E10700975CAB /* LaunchScreen.storyboard in Resources */,
+				B55502A11FA0798A009EDA48 /* ScrollImageTableCell.xib in Resources */,
 				B541D7B91F9757E10056541D /* ShoppingCell.xib in Resources */,
 				B541D7B21F9745CF0056541D /* ShoppingDetailsCell.xib in Resources */,
 				B5D192571F9E23A600FB971D /* PastedGraphic-1.png in Resources */,
@@ -558,6 +568,7 @@
 				BE7727781EDD6DF9005BFC69 /* DetailViewController.swift in Sources */,
 				BE7727741EDC7747005BFC69 /* StringExtensions.swift in Sources */,
 				BE77276E1EDC2955005BFC69 /* Constants.swift in Sources */,
+				B5DE957B1F9F3EB500C5DCF7 /* ShopItem.swift in Sources */,
 				BE77277B1EDD7CE7005BFC69 /* Json4Swift_Base.swift in Sources */,
 				B541D7BB1F9767920056541D /* DetailTableViewTableViewController.swift in Sources */,
 				BE2E59C21ED5E17500975CAB /* ShoppingListTableView.swift in Sources */,
@@ -567,6 +578,7 @@
 				BE2E59991ED5E10700975CAB /* ShoppingListTableViewApp.xcdatamodeld in Sources */,
 				BE2E59911ED5E10700975CAB /* AppDelegate.swift in Sources */,
 				B541D7B81F9757E10056541D /* ShoppingCell.swift in Sources */,
+				B55502A01FA07989009EDA48 /* ScrollImageTableCell.swift in Sources */,
 				BE77277C1EDD7CE7005BFC69 /* ShoppingItems.swift in Sources */,
 				BEC67FCB1EDF170C0055FBD1 /* ImageStore.swift in Sources */,
 			);

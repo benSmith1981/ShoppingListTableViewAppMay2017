@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DetailTableViewTableViewController: UITableViewController, UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    var shoppingItem: ShoppingItems?
+    var shoppingItem: ShopItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,14 +21,25 @@ class DetailTableViewTableViewController: UITableViewController, UITextFieldDele
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(takePic))
-
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(DetailTableViewTableViewController.notificationImageURL),
+                                               name: NSNotification.Name(rawValue: notificationIDs.imageUploaded),
+                                               object: nil)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    func notificationImageURL(notification: NSNotification) {
+        var imageDict = notification.userInfo as! Dictionary<String , URL>
+        let urlString = imageDict[notificationDataKey.imageURLKey]
+        self.shoppingItem?.photoURLString = urlString?.absoluteString
+        ShoppingItemService.sharedInstance.updateShoppingItem(shoppingItem!)
 
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -41,7 +53,6 @@ class DetailTableViewTableViewController: UITableViewController, UITextFieldDele
         if let price = cell.priceLabel.text as? Double {
             shoppingItem?.price = price
         }
-        
         ShoppingItemService.sharedInstance.updateShoppingItem(shoppingItem!)
     }
     
@@ -125,10 +136,10 @@ class DetailTableViewTableViewController: UITableViewController, UITextFieldDele
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCellIDs.shoppingDetailCellID, for: indexPath) as! ShoppingDetailsCell
-
         cell.nameLabel.text = self.shoppingItem?.name
         cell.descriptionLabel.text = self.shoppingItem?.description
         cell.priceLabel.text = "\(self.shoppingItem?.price)"
+        cell.itemImage.kf.setImage(with: URL.init(string: (self.shoppingItem?.photoURLString)!))
         return cell
     }
     

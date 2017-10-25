@@ -28,9 +28,12 @@ struct notificationIDs {
     static let addedShoppingData = "addedShoppingData"
     static let deletedShoppingData = "deletedShoppingData"
     static let changedData = "changedData"
+    static let imageUploaded = "imageUploaded"
 
 }
 
 struct notificationDataKey {
     static let shopingDataKey = "shoppingData"
+    static let imageURLKey = "imageURLKey"
+
 }
