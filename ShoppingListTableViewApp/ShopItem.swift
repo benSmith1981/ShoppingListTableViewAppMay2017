@@ -10,10 +10,16 @@ import Foundation
 
 struct ShopItem: Codable {
     var name : String?
-    var price : Double?
-    var description : String?
-    var photoURLString: String?
+    var description: String?
+    var photoURLString: [String]?
     var id = NSUUID().uuidString
+    var depth: Double?
+
+//    var name : String?
+//    var price : Double?
+//    var description : String?
+//    var photoURLString: String?
+//    var id = NSUUID().uuidString
     
 //    init(name: String, price: Double, description: String, photoURLString: String) {
 //        self.name = name

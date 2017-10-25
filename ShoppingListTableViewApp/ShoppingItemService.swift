@@ -22,9 +22,15 @@ class ShoppingItemService {
     public func getShoppingListData() -> Void {
         ref = Database.database().reference()
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let data = snapshot.value as? NSDictionary {
-                print(data)
-                let arrayOfShoppingItems = self.dictionaryToShopObject(dict: data)
+            if let data = snapshot.value as? NSDictionary,
+                let diveData = data["data"] as? NSArray{
+                print(diveData)
+                var arrayOfShoppingItems: [ShopItem] = []
+                for diveSite in diveData {
+                    if let diveSite = self.dictionaryToOneObject(dict: diveSite as! NSDictionary) {
+                        arrayOfShoppingItems.append(diveSite)
+                    }
+                }
 
                 let shoppingDataDict = [notificationDataKey.shopingDataKey : arrayOfShoppingItems]
 
@@ -37,21 +43,21 @@ class ShoppingItemService {
         })
 
 //         Listen for new comments in the Firebase database
-        ref.child("ShoppingItems").observe(.childChanged, with: { (snapshot) -> Void in
+        ref.child("data").observe(.childChanged, with: { (snapshot) -> Void in
             if let shopDict = snapshot.value as? NSDictionary{
                 print("childAdded")
                 if var shoppingItem = self.dictionaryToOneObject(dict: shopDict) {
-                    shoppingItem.id = snapshot.key
-                    //ShoppingItems.init(dictionary: shopDict)
-                    let data = [notificationDataKey.shopingDataKey : shoppingItem]
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: notificationIDs.changedData),
-                                                   object: self,
-                                                   userInfo: data)
+//                    shoppingItem.id = snapshot.key
+//                    //ShoppingItems.init(dictionary: shopDict)
+//                    let data = [notificationDataKey.shopingDataKey : shoppingItem]
+//                    NotificationCenter.default.post(name: Notification.Name(rawValue: notificationIDs.changedData),
+//                                                   object: self,
+//                                                   userInfo: data)
                 }
             }
         })
 
-        ref.child("ShoppingItems").observe(.childRemoved, with: { (snapshot) -> Void in
+        ref.child("data").observe(.childRemoved, with: { (snapshot) -> Void in
             print("childRemoved")
             if let shopDict = snapshot.value as? NSDictionary{
                 let shoppingItem = self.dictionaryToOneObject(dict: shopDict)
@@ -97,7 +103,7 @@ class ShoppingItemService {
         
     public func addShopItem(shopItem: ShopItem) {
         let dict = self.dictionaryRepresentation(shopItem)
-        ref.child("ShoppingItems").child(shopItem.id).setValue(dict)
+        ref.child("data").child(shopItem.id).setValue(dict)
         
     }
     
@@ -111,12 +117,12 @@ class ShoppingItemService {
 //    }
     
     public func removeShoppingItem(_ shopItem: ShopItem) {
-        ref.child("ShoppingItems").child(shopItem.id).removeValue()
+        ref.child("data").child(shopItem.id).removeValue()
     }
     
     public func updateShoppingItem(_ shopItem: ShopItem) {
         if let dict = dictionaryRepresentation(shopItem) {
-            ref.child("ShoppingItems").child(shopItem.id).updateChildValues(dict)
+            ref.child("data").child(shopItem.id).updateChildValues(dict)
         }
     }
     

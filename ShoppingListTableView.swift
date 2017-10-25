@@ -229,9 +229,13 @@ class ShoppingListTableView: UITableViewController, UITextFieldDelegate, UINavig
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             if let textField = alert?.textFields?[0].text,
                 let priceField = alert?.textFields?[1].text,
-                let priceDouble = Double(priceField)
+                let depthDouble = Double(priceField)
             {
-                let shopItem =  ShopItem.init(name: textField, price: priceDouble, description: "", photoURLString: "", id: NSUUID().uuidString)
+                let shopItem =  ShopItem.init(name: textField,
+                                              description: "",
+                                              photoURLString: [],
+                                              id: NSUUID().uuidString,
+                                              depth: depthDouble)
 
                 ShoppingItemService.sharedInstance.addShopItem(shopItem: shopItem)
 

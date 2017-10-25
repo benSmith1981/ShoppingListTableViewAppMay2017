@@ -21,7 +21,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
             itemImage.image = image
         }
         nameTextFieldOutlet.text = shopItemDetail?.name
-        if let priceDouble = shopItemDetail?.price {
+        if let priceDouble = shopItemDetail?.depth {
             priceTextFieldOutlet.text = "\(priceDouble)"
         }
         // Do any additional setup after loading the view.
@@ -32,7 +32,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         }
         if let priceText = priceTextFieldOutlet.text,
             let doublePrice = Double(priceText) {
-            shopItemDetail?.price = doublePrice
+            shopItemDetail?.depth = doublePrice
         }
         ShoppingItemService.sharedInstance.addShopItem(shopItem: self.shopItemDetail!)
         

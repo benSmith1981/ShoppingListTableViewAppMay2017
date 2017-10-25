@@ -26,7 +26,7 @@
                   moduleName = "ShoppingListTableViewApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ben/Documents/ShoppingListTableViewAppMay2017/ShoppingListTableViewApp/DetailViewController.swift"
-                  timestampString = "530632083.860528"
+                  timestampString = "530637725.196142"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
@@ -41,7 +41,7 @@
                   moduleName = "ShoppingListTableViewApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/ben/Documents/ShoppingListTableViewAppMay2017/ShoppingListTableViewApp/DetailViewController.swift"
-                  timestampString = "530632083.869083"
+                  timestampString = "530637725.204336"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "138"
             endingLineNumber = "138"
-            landmarkName = "uploadImage(image:imageName:)"
+            landmarkName = "dictionaryRepresentation(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "118"
             endingLineNumber = "118"
-            landmarkName = "updateShoppingItem(_:)"
+            landmarkName = "removeShoppingItem(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -112,6 +112,38 @@
             startingLineNumber = "37"
             endingLineNumber = "37"
             landmarkName = "viewWillDisappear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShoppingListTableViewApp/ShoppingItemService.swift"
+            timestampString = "530637696.335829"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "ShoppingItemService"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShoppingListTableViewApp/ShoppingItemService.swift"
+            timestampString = "530637875.202979"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "getShoppingListData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
