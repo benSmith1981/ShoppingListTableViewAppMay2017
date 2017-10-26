@@ -23,11 +23,12 @@ class ShoppingItemService {
         ref = Database.database().reference()
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let data = snapshot.value as? NSDictionary,
-                let diveData = data["data"] as? NSArray{
+                let diveData = data["data"] as? [String:Any] {
                 print(diveData)
                 var arrayOfShoppingItems: [ShopItem] = []
-                for diveSite in diveData {
-                    if let diveSite = self.dictionaryToOneObject(dict: diveSite as! NSDictionary) {
+                for (key, diveSite) in diveData {
+                    if var diveSite = self.dictionaryToOneObject(dict: diveSite as! NSDictionary) {
+                        diveSite.id = key
                         arrayOfShoppingItems.append(diveSite)
                     }
                 }
@@ -42,17 +43,17 @@ class ShoppingItemService {
             }
         })
 
-//         Listen for new comments in the Firebase database
+//Listen for new comments in the Firebase database
         ref.child("data").observe(.childChanged, with: { (snapshot) -> Void in
             if let shopDict = snapshot.value as? NSDictionary{
                 print("childAdded")
                 if var shoppingItem = self.dictionaryToOneObject(dict: shopDict) {
-//                    shoppingItem.id = snapshot.key
-//                    //ShoppingItems.init(dictionary: shopDict)
-//                    let data = [notificationDataKey.shopingDataKey : shoppingItem]
-//                    NotificationCenter.default.post(name: Notification.Name(rawValue: notificationIDs.changedData),
-//                                                   object: self,
-//                                                   userInfo: data)
+                    shoppingItem.id = snapshot.key
+                    //ShoppingItems.init(dictionary: shopDict)
+                    let data = [notificationDataKey.shopingDataKey : shoppingItem]
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: notificationIDs.changedData),
+                                                   object: self,
+                                                   userInfo: data)
                 }
             }
         })
@@ -94,6 +95,7 @@ class ShoppingItemService {
             let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
 //            let decoded = try JSONSerialization.jsonObject(with: dict, options: [])
             let shopItem = try decoder.decode(ShopItem.self, from: jsonData)
+            
             return shopItem
         } catch {
             return nil
@@ -103,7 +105,9 @@ class ShoppingItemService {
         
     public func addShopItem(shopItem: ShopItem) {
         let dict = self.dictionaryRepresentation(shopItem)
-        ref.child("data").child(shopItem.id).setValue(dict)
+        var newChildRef = ref.child("data").childByAutoId();
+        print("my new shiny id is " + newChildRef.key);
+        ref.child("data").child(newChildRef.key).setValue(dict)
         
     }
     

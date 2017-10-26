@@ -35,7 +35,7 @@ class DetailTableViewTableViewController: UITableViewController, UITextFieldDele
     func notificationImageURL(notification: NSNotification) {
         var imageDict = notification.userInfo as! Dictionary<String , URL>
         if let urlString = imageDict[notificationDataKey.imageURLKey] {
-            self.shoppingItem?.photoURLString?.append(urlString.absoluteString)
+            self.shoppingItem?.imageURLS?.append(urlString.absoluteString)
             ShoppingItemService.sharedInstance.updateShoppingItem(shoppingItem!)
 
         }
@@ -141,7 +141,7 @@ class DetailTableViewTableViewController: UITableViewController, UITextFieldDele
         cell.nameLabel.text = self.shoppingItem?.name
         cell.descriptionLabel.text = self.shoppingItem?.description
         cell.priceLabel.text = "\(self.shoppingItem?.depth)"
-        if let photo = self.shoppingItem?.photoURLString![0] {
+        if let photo = self.shoppingItem?.imageURLS![0] {
             cell.itemImage.kf.setImage(with: URL.init(string: photo))
         }
         return cell

@@ -11,7 +11,7 @@ import Foundation
 struct ShopItem: Codable {
     var name : String?
     var description: String?
-    var photoURLString: [String]?
+    var imageURLS: [String]?
     var id = NSUUID().uuidString
     var depth: Double?
 

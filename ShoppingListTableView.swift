@@ -233,7 +233,7 @@ class ShoppingListTableView: UITableViewController, UITextFieldDelegate, UINavig
             {
                 let shopItem =  ShopItem.init(name: textField,
                                               description: "",
-                                              photoURLString: [],
+                                              imageURLS: [],
                                               id: NSUUID().uuidString,
                                               depth: depthDouble)
 
